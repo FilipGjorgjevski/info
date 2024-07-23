@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #text-container {
+            position: relative; 
+            display: inline-block;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .typewriter {
+            font-size: 75px;
+            padding-top: 20px;
+            color: white;
+            font-family: 'Audiowide', sans-serif;
+            border-right: none; 
+            white-space: nowrap;
+            margin: 0 auto;
+        }
+
+        .line {
+            position: absolute;
+            height: 2px;
+            background-color: white;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 450px;
+            opacity: 1;
+            top: 115px; 
+        }
+
+        .buttons {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Audiowide', sans-serif;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 15px;
+        }
+
+        .buttons button:hover {
+            background-color: grey;
+            transform: scale(1.1);
+        }
+
+        .intro-text {
+            font-family: 'Audiowide', sans-serif;
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            margin-top: 98px;
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 3s forwards; /* Fade in animation */
+        }
+
+        .bigger {
+            font-size: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .fade-out-text {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        @media (max-width: 1920px) {
+            .intro-text {
+                font-size: 25px;
+                margin-top: 98px;
+            }
+
+       @media (max-width: 1500px) {
+           .intro-text {
+               font-size: 20px;
+               margin-top: 50px;
+           }
+        }
+}        
+
+
+        .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 2px;
+            background: white;
+            opacity: 0;
+        }
+
+        @keyframes shootingStar {
+            0% {
+                opacity: 0.13;
+                transform: translateX(0) scaleX(0);
+            }
+            50% {
+                opacity: 0.13;
+                transform: translateX(40px) scaleX(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(80px) scaleX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="text-container">
+        <p class="typewriter" id="typewriter">FILIP GJORGJEVSKI</p>
+        <div class="line" id="line"></div>
+        <div class="buttons" id="buttons">
+            <button id="home-button">Home</button>
+            <button id="about-button">About</button>
+            <button id="projects-button">Projects</button>
+            <button id="contact-button">Contact</button>
+        </div>
+        <div id="fadeouterotbrat">
+            <div class="intro-text" id="intro-text">
+                <p>At 21, I’m a seasoned programmer with a strong track record in </p> 
+                <p><u>desktop application development</u>, <u>website backend systems</u>, and <u>database integration</u>.</p>
+                <p>My skills span <u>backend development</u> with a solid grasp of <u>frontend technologies</u>.</p>
+                <p>My current primary expertise encompasses <u>C#</u>, <u>Node.js</u>, and <u>Firebase</u>.</p>
+                <p>I’ve tackled major projects and thrive on <u>complex coding challenges</u>.</p>
+                <p>My journey is driven by a vision: using my knowledge and strength to make a <u>meaningful impact</u>.</p>
+                <p>I’m committed to improving the world, enhancing <u>human potential</u>, and fostering a deeper connection with <strong><u><span class="bigger">God</span></u></strong>.</p>
+                <p>This is more than just a career—it’s my <u><h1>life mission</u></h1></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fadeOutAndRedirect(redirectUrl) {
+            document.getElementById('text-container').classList.add('fade-out');
+
+            setTimeout(function() {
+                window.location.href = redirectUrl;
+            }, 1000); 
+        }
+
+        function fadeOutTextAndRefresh() {
+            document.getElementById('fadeouterotbrat').classList.add('fade-out-text');
+
+       
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
+        }
+
+        function fadeOutTextAndRedirect(redirectUrl) {
+            document.getElementById('fadeouterotbrat').classList.add('fade-out-text');
+
+            setTimeout(function() {
+                window.location.href = redirectUrl;
+            }, 1000);
+        }
+
+        document.getElementById('home-button').addEventListener('click', function() {
+            fadeOutAndRedirect('index.html');
+        });
+
+        document.getElementById('about-button').addEventListener('click', function() {
+            fadeOutTextAndRefresh();
+        });
+
+        document.getElementById('contact-button').addEventListener('click', function() {
+            fadeOutTextAndRedirect('contact.html');
+        });
+
+        document.getElementById('projects-button').addEventListener('click', function() {
+            fadeOutTextAndRedirect('projects.html');
+        });
+
+
+                const body = document.body;
+
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            body.appendChild(shootingStar);
+
+            const startX = Math.random() * (window.innerWidth - 100); 
+            const startY = Math.random() * (window.innerHeight - 100);
+            shootingStar.style.left = startX + 'px';
+            shootingStar.style.top = startY + 'px';
+
+            const duration = Math.random() * 2 + 1;
+            shootingStar.style.animation = `shootingStar ${duration}s linear`;
+
+            shootingStar.addEventListener('animationend', () => {
+                body.removeChild(shootingStar);
+            });
+        }
+
+        setInterval(createShootingStar, 20);
+    </script>
+</body>
+</html>

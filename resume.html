@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid white;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 2.8s steps(65, end) forwards, blink-caret 0.75s step-end infinite;
+            font-size: 75px;
+            color: white;
+            font-family: 'Audiowide', sans-serif;
+            text-align: center;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        .move-to-top {
+            animation: moveTop 1s forwards;
+        }
+
+        @keyframes moveTop {
+            from {
+                top: 350px;
+            }
+            to {
+                top: 50px;
+            }
+        }
+
+        .line {
+            position: absolute;
+            height: 2px;
+            background-color: white;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            opacity: 0;
+            transition: width 2s, opacity 0.5s;
+        }
+
+        .line.expand {
+            width: 450px;
+            opacity: 1;
+        }
+
+        .no-blink-caret {
+            border-right: none;
+        }
+
+        .buttons {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Audiowide', sans-serif;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 15px;
+        }
+
+        .buttons button:hover {
+            background-color: grey;
+            transform: scale(1.1);
+        }
+
+        .show-buttons {
+            display: block;
+        }
+
+        .intro-text {
+            display: none;
+            font-family: 'Audiowide', sans-serif;
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            margin-top: 150px;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .show-intro-text {
+            display: block;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        
+        @media (max-width: 1920px) {
+            .intro-text {
+                font-size: 25px; /* Adjust this value */
+                margin-top: 150px;
+            }
+
+       @media (max-width: 1500px) {
+           .intro-text {
+               font-size: 20px; /* Adjust this value */
+               margin-top: 125px;
+           }
+        }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 2px;
+            background: white;
+            opacity: 0;
+        }
+
+        @keyframes shootingStar {
+            0% {
+                opacity: 0.13;
+                transform: translateX(0) scaleX(0);
+            }
+            50% {
+                opacity: 0.13;
+                transform: translateX(40px) scaleX(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(80px) scaleX(0);
+            }
+        }
+    </style>
+</head>
+<body style="
+    background-color: black;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+">
+    <div id="text-container" style="
+        position: absolute; 
+        display: inline-block;
+        vertical-align: middle;
+        top: 350px;
+        text-align: center;
+    ">
+        <p class="typewriter" id="typewriter">FILIP GJORGJEVSKI</p>
+        <div class="line" id="line"></div>
+        <div class="buttons" id="buttons">
+            <button id="home-button">Home</button>
+            <button id="about-button">About</button>
+            <button id="projects-button">Projects</button>
+            <button id="contact-button">Contact</button>
+        </div>
+        <div id="fadeouterotbrat">
+        <div class="intro-text" id="intro-text">
+            <p>Greetings, traveler.</p>
+            <p>You've arrived at the digital realm of Filip Gjorgjevski.</p>
+            <p>This site holds all the essential details about me and showcases my past projects.</p>
+            <p>Dive in to explore my work, learn about my journey, and discover what drives my passion.</p>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            var textContainer = document.getElementById('text-container');
+            textContainer.classList.add('move-to-top');
+
+            var typewriter = document.getElementById('typewriter');
+            typewriter.classList.add('no-blink-caret');
+        }, 3000);
+
+        setTimeout(function() {
+            var line = document.getElementById('line');
+            line.classList.add('expand');
+        }, 4000);
+
+        setTimeout(function() {
+            var buttons = document.getElementById('buttons');
+            buttons.classList.add('show-buttons');
+        }, 6000);
+
+        setTimeout(function() {
+            var introText = document.getElementById('intro-text');
+            introText.classList.add('show-intro-text');
+        }, 6800);
+
+        document.getElementById('home-button').addEventListener('click', function() {
+            var elementsToFadeOut = document.querySelectorAll('#text-container, #buttons, #intro-text');
+            elementsToFadeOut.forEach(function(element) {
+                element.classList.add('fade-out');
+            });
+
+            setTimeout(function() {
+                elementsToFadeOut.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+                
+
+                location.reload();
+            }, 1000);
+        });
+
+        document.getElementById('about-button').addEventListener('click', function() {
+            var elementsToFadeOut = document.querySelectorAll('#fadeouterotbrat');
+            elementsToFadeOut.forEach(function(element) {
+                element.classList.add('fade-out');
+            });
+
+            setTimeout(function() {
+                elementsToFadeOut.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+
+                window.location.href = 'about.html';
+            }, 1000);
+        });
+
+        document.getElementById('contact-button').addEventListener('click', function() {
+            var elementsToFadeOut = document.querySelectorAll('#fadeouterotbrat');
+            elementsToFadeOut.forEach(function(element) {
+                element.classList.add('fade-out');
+            });
+
+            setTimeout(function() {
+                elementsToFadeOut.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+
+                window.location.href = 'contact.html';
+            }, 1000);
+        });
+
+        document.getElementById('projects-button').addEventListener('click', function() {
+            var elementsToFadeOut = document.querySelectorAll('#fadeouterotbrat');
+            elementsToFadeOut.forEach(function(element) {
+                element.classList.add('fade-out');
+            });
+
+            setTimeout(function() {
+                elementsToFadeOut.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+
+                window.location.href = 'projects.html';
+            }, 1000);
+        });
+
+        const body = document.body;
+
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            body.appendChild(shootingStar);
+
+            const startX = Math.random() * (window.innerWidth - 100);
+            const startY = Math.random() * (window.innerHeight - 100);
+            shootingStar.style.left = startX + 'px';
+            shootingStar.style.top = startY + 'px';
+
+            const duration = Math.random() * 2 + 1;
+            shootingStar.style.animation = `shootingStar ${duration}s linear`;
+
+            shootingStar.addEventListener('animationend', () => {
+                body.removeChild(shootingStar);
+            });
+        }
+
+        setTimeout(function() {
+            setInterval(createShootingStar, 20);
+        }, 3000);
+
+    </script>
+</body>
+</html>

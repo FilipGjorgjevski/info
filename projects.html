@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        #text-container {
+            position: relative; 
+            display: inline-block;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .typewriter {
+            font-size: 75px;
+            padding-top: 20px;
+            color: white;
+            font-family: 'Audiowide', sans-serif;
+            border-right: none;
+            white-space: nowrap;
+            margin: 0 auto;
+        }
+
+        .line {
+            position: absolute;
+            height: 2px;
+            background-color: white;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 450px;
+            opacity: 1;
+            top: 115px;
+        }
+
+        .buttons {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Audiowide', sans-serif;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 15px;
+        }
+
+        .buttons button:hover {
+            background-color: grey;
+            transform: scale(1.1);
+        }
+
+        .projects-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 90px;
+            animation: fadeIn 3s forwards;
+            z-index: 1000;
+        }
+
+        .project {
+            background-color: white;
+            color: black;
+            font-family: 'Audiowide', sans-serif;
+            width: 200px;
+            height: 200px;
+            margin: 20px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-width: 5px;
+            border: solid;
+            border-color: white;
+            
+        }
+
+        .project:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px white;
+        }
+
+        .project img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: black;
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            padding-left: 1px;
+            opacity: 0;
+            transition: opacity 0.3s;
+
+        }
+
+        .project:hover .project-info {
+            opacity: 1;
+        }
+
+        .project-expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background-color: white;
+            color: black;
+            z-index: 10;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 0 30px black;
+            font-family: 'Audiowide', sans-serif;
+            overflow-y: auto;
+        }
+
+        .project-expanded video {
+            margin-top: 45px;
+            width: 35%;
+            height: auto;
+        }
+
+        .project-expanded img {
+            margin-top: 45px;
+            width: 26%;
+            height: auto;
+        }
+
+        .project-expanded p {
+            margin-top: 0px;
+            text-align: left;
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Audiowide', sans-serif;
+            cursor: pointer;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s forwards;
+        }
+        
+        @media (max-width: 1920px) {
+            .project-expanded p {
+                font-size: 14px;
+            }
+        }
+
+       @media (max-width: 1500px) {
+           .project-expanded p {
+               font-size: 12px;
+           }
+        }
+
+
+                .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 2px;
+            background: white;
+            opacity: 0;
+            z-index: 100;
+        }
+
+        @keyframes shootingStar {
+            0% {
+                opacity: 0.13;
+                transform: translateX(0) scaleX(0);
+            }
+            50% {
+                opacity: 0.13;
+                transform: translateX(40px) scaleX(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(80px) scaleX(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="text-container">
+        <p class="typewriter" id="typewriter">FILIP GJORGJEVSKI</p>
+        <div class="line" id="line"></div>
+        <div class="buttons" id="buttons">
+            <button id="home-button">Home</button>
+            <button id="about-button">About</button>
+            <button id="projects-button">Projects</button>
+            <button id="contact-button">Contact</button>
+        </div>
+        <div id="fadeouterotbrat" class="projects-container">
+            <div class="project" onclick="expandProject('project1')">
+                <img src="sliki/Screenshot 2024-07-21 234316.png" alt="Wallpaper Desktop Assistant">
+                <div class="project-info">Wallpaper Desktop Assistant</div>
+            </div>
+            <div class="project" onclick="expandProject('project2')">
+                <img src="sliki/project2.png" alt="CargoDB Database System" style="object-fit: cover">
+                <div class="project-info">CargoDB Database System</div>
+            </div>
+            <div class="project" onclick="expandProject('project3')"style="position: relative;">
+                <img src="sliki/chat1.png" alt="Remote Control Tool">
+                <div class="project-info">Remote Control Tool</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="project1" class="project-expanded">
+        <button class="close-button" onclick="closeProject('project1')">Close</button>
+        <video class="editslika" controls>
+            <source class="malovideo" src="videos/project1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p style="margin-top: 40px; font-size: 18px;"><b>Always-on-Top C# Desktop Assistant Application designed to streamline your workflow and enhance productivity right from your desktop!</b></p>
+        
+        <p style="margin-top:23px; font-size: 22px; margin-bottom: 25px;"><b>Key Features:</b></p>
+        
+        <p style="font-size: 18px;"><b>Customization:</b> Tailor the assistant with customizable settings and commands.</p>
+        <p style="font-size: 18px;"><b>Versatile Functionality:</b> Program it to fetch weather updates, manage files, control servers, integrate AI and more.</p>
+        <p style="font-size: 18px;"><b>Efficient Workflow:</b> Keep essential tools and commands at your fingertips.</p>
+        <p style="font-size: 18px;"><b>Aesthetic Design:</b> Enjoy a modern, visually appealing interface that blends with your wallpaper.</p>
+        <p style="font-size: 18px;"><b>Enhanced Productivity:</b> Streamline tasks and optimize your workflow.</p>
+        <p style="font-size: 18px;"><b>Innovative Integration:</b> Always on top, ensuring easy access to commands.</p>
+        <p style="font-size: 18px;"><b>User-Friendly:</b> Easy to set up and use, with comprehensive support.</p>
+    </div>
+    <div id="project2" class="project-expanded">
+        <button class="close-button" onclick="closeProject('project2')">Close</button>
+        <video class="editslika" controls>
+            <source class="malovideo" src="videos/project2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <p style="margin-top: 40px; font-size: 18px;"><b>Cargo Database Management System designed to optimize your logistics operations and enhance productivity!</b></p>
+        <p style="margin-top:23px; font-size: 22px; margin-bottom: 25px;"><b>Key Features:</b></p>
+        <p style="font-size: 18px;"><b>Comprehensive Logging:</b> Record offers for various routes by different firms and track their bids efficiently.</p>
+        <p style="font-size: 18px;"><b>Dynamic Management:</b> List, sort, and filter offers with ease, and export data to Excel for further analysis.</p>
+        <p style="font-size: 18px;"><b>Seamless Integration:</b> Send offers to firms directly through the web or add them manually via Excel or manual input.</p>
+        <p style="font-size: 18px;"><b>Firm Directory:</b> Maintain a detailed log of all the firms you collaborate with, and send multiple email offers simultaneously.</p>
+        <p style="font-size: 18px;"><b>Robust Security:</b> Enjoy a functional account system with solid security, utilizing Firebase databases.</p>
+        <p style="font-size: 18px;"><b>High Performance:</b> Experience fast and effective cargo management.</p>
+        <p style="font-size: 18px;"><b>User-Friendly Design:</b> Developed in C# with a sleek XAML front end, making it easy to navigate and use.</p>
+    </div>
+    <div id="project3" class="project-expanded">
+        <button class="close-button" onclick="closeProject('project3')">Close</button>
+        <div style="display:flex; justify-content: space-around;">
+            <img src="sliki/chat1.png" alt="Project 3">
+            <img src="sliki/chat2.png" alt="Project 3" style="width: 600px;">
+            <img src="sliki/chat3.png" alt="Project 3">
+        </div>
+
+        <p style="margin-top: 40px; font-size: 18px;"><b>Open-source C# Server Program designed to enhance communication and remote management capabilities!</b></p>
+        <p style="margin-top:23px; font-size: 22px; margin-bottom: 25px;"><b>Key Features:</b></p>
+        <p style="font-size: 18px;"><b>Robust Functionality:</b> Leverage it as a chat program or a powerful remote management tool, capable of screensharing, capturing screenshots, </p> <p style="font-size: 18px;">reading processes, and managing tasks on remote devices.</p>
+        <p style="font-size: 18px;"><b>Modular Design:</b> Easily integrate AI, add commands, and customize the system to meet specific requirements, thanks to its modular architecture.</p>
+        <p style="font-size: 18px;"><b>Enhanced Communication:</b> Support for embedding images, utilizing various colors, and creating a rich messaging experience.</p>
+        <p style="font-size: 18px;"><b>Open-source and Accessible:</b> Written in clear and concise C#, making it easy to read, implement, and modify the code.</p>
+        <p style="font-size: 18px;"><b>Versatile Applications:</b> Suitable for various use cases, from basic chat functions to advanced remote management tasks.</p>
+        <p style="font-size: 18px;"><b>Developer-Friendly:</b> Designed with simplicity and extensibility in mind, ensuring a smooth development and deployment process.</p>
+    </div>
+
+    <script>
+        function expandProject(projectId) {
+            var projectElement = document.getElementById(projectId);
+            var videoElement = projectElement.querySelector('video');
+            projectElement.style.display = 'flex';
+            projectElement.classList.add('fade-in');
+            if (videoElement) {
+                videoElement.currentTime = 0;
+                videoElement.volume = 0.2;
+                videoElement.play();
+            }
+        }
+    
+        function closeProject(projectId) {
+            var projectElement = document.getElementById(projectId);
+            var videoElement = projectElement.querySelector('video');
+            projectElement.classList.remove('fade-in');
+            projectElement.style.display = 'none';
+            if (videoElement) {
+                videoElement.pause();
+                videoElement.currentTime = 0;
+            }
+        }
+    
+        function fadeOutAndRedirect(redirectUrl) {
+            document.getElementById('text-container').classList.add('fade-out');
+    
+
+            setTimeout(function() {
+                window.location.href = redirectUrl;
+            }, 1000);
+        }
+    
+        function fadeOutProjects(redirectUrl) {
+            var projects = document.querySelectorAll('.project');
+            projects.forEach(function(project) {
+                project.classList.add('fade-out');
+            });
+    
+            setTimeout(function() {
+                window.location.href = redirectUrl;
+            }, 1000);
+        }
+
+        function fadeOutAndRefresh() {
+            var projects = document.querySelectorAll('.project');
+            projects.forEach(function(project) {
+            project.classList.add('fade-out');
+            });
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
+        }
+    
+        document.getElementById('home-button').addEventListener('click', function() {
+            fadeOutAndRedirect('index.html');
+        });
+    
+        document.getElementById('about-button').addEventListener('click', function() {
+            fadeOutProjects('about.html');
+        });
+    
+        document.getElementById('projects-button').addEventListener('click', function() {
+            fadeOutAndRefresh();
+        });
+    
+        document.getElementById('contact-button').addEventListener('click', function() {
+            fadeOutProjects('contact.html');
+        });
+
+
+                const body = document.body;
+
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            body.appendChild(shootingStar);
+
+            const startX = Math.random() * (window.innerWidth - 100);
+            const startY = Math.random() * (window.innerHeight - 100);
+            shootingStar.style.left = startX + 'px';
+            shootingStar.style.top = startY + 'px';
+
+            const duration = Math.random() * 2 + 1;
+            shootingStar.style.animation = `shootingStar ${duration}s linear`;
+
+            shootingStar.addEventListener('animationend', () => {
+                body.removeChild(shootingStar);
+            });
+        }
+
+        setInterval(createShootingStar, 20);
+    </script>
+    
+</body>
+</html>
